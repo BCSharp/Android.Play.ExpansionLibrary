@@ -25,8 +25,8 @@ namespace LicenseVerificationLibrary.Policy
         /// The result from validating the server response
         /// </param>
         /// <param name="rawData">
-        /// The raw server response data, can be null for 
-        /// <see cref="PolicyServerResponse.Retry"/>
+        /// The raw server response data, can be null except for 
+        /// <see cref="PolicyServerResponse.Licensed"/>
         /// </param>
         void ProcessServerResponse(PolicyServerResponse response, ResponseData rawData);
 
