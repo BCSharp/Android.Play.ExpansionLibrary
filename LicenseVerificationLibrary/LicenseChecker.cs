@@ -152,7 +152,7 @@ namespace LicenseVerificationLibrary
             this.publicKey = GeneratePublicKey(encodedPublicKey);
             this.packageName = this.context.PackageName;
             this.versionCode = GetVersionCode(context, this.packageName);
-            var handlerThread = new HandlerThread("background thread");
+            var handlerThread = new HandlerThread("LVL background thread");
             handlerThread.Start();
             this.handler = new Handler(handlerThread.Looper);
         }
