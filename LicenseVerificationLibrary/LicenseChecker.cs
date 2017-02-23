@@ -201,7 +201,7 @@ namespace LicenseVerificationLibrary
                             else
                             {
                                 Debug.WriteLine("Could not bind to service.");
-                                this.HandleServiceConnectionError(validator);
+                                callback.ApplicationError(CallbackErrorCode.MissingLicensingService);
                             }
                         }
                         catch (Java.Lang.SecurityException)
@@ -211,6 +211,7 @@ namespace LicenseVerificationLibrary
                         catch (Exception ex)
                         {
                             Debug.WriteLine(ex.StackTrace);
+                            callback.ApplicationError(CallbackErrorCode.ApplicationException);
                         }
                     }
                     else

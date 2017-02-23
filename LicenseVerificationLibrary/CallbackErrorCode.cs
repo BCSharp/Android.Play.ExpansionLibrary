@@ -33,6 +33,16 @@ namespace LicenseVerificationLibrary
         /// <summary>
         /// The missing permission.
         /// </summary>
-        MissingPermission = 6
+        MissingPermission = 6,
+
+        /// <summary>
+        /// The missing licensing service
+        /// </summary>
+        MissingLicensingService = 7,
+
+        /// <summary>
+        /// The application error.
+        /// </summary>
+        ApplicationException = 8,
     }
 }
