@@ -88,9 +88,26 @@ namespace LicenseVerificationLibrary.Policy
         /// An obfuscator to be used with preferences.
         /// </param>
         public ServerManagedPolicy(Context context, IObfuscator obfuscator)
+            : this(context, obfuscator, PreferencesFile)
+        {}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServerManagedPolicy"/> class. 
+        /// The server managed policy.
+        /// </summary>
+        /// <param name="context">
+        /// The context for the current application
+        /// </param>
+        /// <param name="obfuscator">
+        /// An obfuscator to be used with preferences.
+        /// </param>
+        /// <param name="preferencesFile">
+        /// The name of the shared preferences file to use.
+        /// </param>
+        protected ServerManagedPolicy(Context context, IObfuscator obfuscator, string preferencesFile)
         {
             // Import old values
-            ISharedPreferences sp = context.GetSharedPreferences(PreferencesFile, FileCreationMode.Private);
+            ISharedPreferences sp = context.GetSharedPreferences(preferencesFile, FileCreationMode.Private);
 			this.Obfuscator = new PreferenceObfuscator(sp, obfuscator);
 
 			this.lastResponse = this.Obfuscator.GetValue<PolicyServerResponse>(Preferences.LastResponse, Preferences.DefaultLastResponse);

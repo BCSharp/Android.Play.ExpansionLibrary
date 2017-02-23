@@ -49,12 +49,15 @@ namespace LicenseVerificationLibrary.Policy
         {
             var results = new Dictionary<string, string>();
 
-            IEnumerable<KeyValuePair<string, string>> parameters = GetParameters(extras);
-            foreach (KeyValuePair<string, string> item in parameters)
+            if (!string.IsNullOrEmpty(extras))
             {
-                int count = results.Keys.Count(x => x == item.Key);
-                string name = item.Key + (count != 0 ? count.ToString() : string.Empty);
-                results.Add(name, item.Value);
+                IEnumerable<KeyValuePair<string, string>> parameters = GetParameters(extras);
+                foreach (KeyValuePair<string, string> item in parameters)
+                {
+                    int count = results.Keys.Count(x => x == item.Key);
+                    string name = item.Key + (count != 0 ? count.ToString() : string.Empty);
+                    results.Add(name, item.Value);
+                }
             }
 
             return results;

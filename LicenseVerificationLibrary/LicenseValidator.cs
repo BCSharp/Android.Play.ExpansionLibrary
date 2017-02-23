@@ -142,15 +142,31 @@ namespace LicenseVerificationLibrary
         /// <param name="signature">
         /// server signature
         /// </param>
+        /// <seealso href="https://developer.android.com/google/play/licensing/licensing-reference.html#server-response-codes"/>
         public void Verify(IPublicKey publicKey, ServerResponseCode responseCode, string signedData, string signature)
         {
             string userId = null;
 
             // Skip signature check for unsuccessful requests
             ResponseData data = null;
-            if (responseCode == ServerResponseCode.Licensed || responseCode == ServerResponseCode.NotLicensed
+            if (responseCode == ServerResponseCode.Licensed 
+                || (responseCode == ServerResponseCode.NotLicensed && signedData != null && signature != null)
                 || responseCode == ServerResponseCode.LicensedOldKey)
             {
+                if (signedData == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Response doesn't carry signed data.");
+                    this.HandleInvalidResponse();
+                    return;
+                }
+
+                if (signature == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Response doesn't have a signature.");
+                    this.HandleInvalidResponse();
+                    return;
+                }
+
                 // Verify signature.
                 try
                 {

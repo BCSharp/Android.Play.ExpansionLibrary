@@ -34,7 +34,7 @@ namespace LicenseVerificationLibrary.Policy
 		/// <summary>
 		/// The file.
 		/// </summary>
-		public const string PreferencesFile = "com.android.vending.licensing.APKExpansionPolicy";
+		public new const string PreferencesFile = "com.android.vending.licensing.APKExpansionPolicy";
 
         /// <summary>
         /// The string that contains the key for finding file names.
@@ -97,7 +97,7 @@ namespace LicenseVerificationLibrary.Policy
         /// An obfuscator to be used when reading/writing to shared preferences.
         /// </param>
         public ApkExpansionPolicy(Context context, IObfuscator obfuscator)
-			: base(context, obfuscator)
+			: base(context, obfuscator, PreferencesFile)
         {
             this.expansionFiles = new[] { new ExpansionFile(), new ExpansionFile() };
         }
