@@ -80,6 +80,11 @@ namespace LicenseVerificationLibrary
         private readonly Handler handler;
 
         /// <summary>
+        /// The handler thread managing the looper, message queue and the handler.
+        /// </summary>
+        private readonly HandlerThread handlerThread;
+
+        /// <summary>
         /// The _locker.
         /// </summary>
         private readonly object locker;
@@ -152,7 +157,7 @@ namespace LicenseVerificationLibrary
             this.publicKey = GeneratePublicKey(encodedPublicKey);
             this.packageName = this.context.PackageName;
             this.versionCode = GetVersionCode(context, this.packageName);
-            var handlerThread = new HandlerThread("LVL background thread");
+            this.handlerThread = new HandlerThread("LVL background thread");
             handlerThread.Start();
             this.handler = new Handler(handlerThread.Looper);
         }
@@ -235,7 +240,7 @@ namespace LicenseVerificationLibrary
             lock (this.locker)
             {
                 this.CleanupService();
-                this.handler.Looper.Quit();
+                this.handlerThread.Quit();
             }
         }
 
